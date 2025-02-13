@@ -23,7 +23,7 @@ public:
     NombreComplexe conjuguee() const;
     NombreComplexe addition(NombreComplexe const& T) const;
     NombreComplexe soustraction(NombreComplexe const& S) const;
-    NombreComplexe lineaire(double t);
+    NombreComplexe lineaire(double t) const;
     NombreComplexe produit(NombreComplexe Q) const;
     NombreComplexe division(NombreComplexe R) const;
     NombreComplexe expz() const;
@@ -35,6 +35,7 @@ public:
     NombreComplexe& operator+=(NombreComplexe const& T);
     NombreComplexe& operator-=(NombreComplexe const& T);
     NombreComplexe& operator*=(NombreComplexe const& Q);
+    NombreComplexe& operator*=(double const& t);
     NombreComplexe& operator/=(NombreComplexe const& Q);
     NombreComplexe& operator=(NombreComplexe const& NombreComplexeAcopier);
     ~NombreComplexe();
@@ -56,6 +57,8 @@ std::ostream& operator<<(std::ostream& flux, NombreComplexe const& z);
 NombreComplexe operator+(NombreComplexe const& a, NombreComplexe const& b);
 NombreComplexe operator-(NombreComplexe const& z_1, NombreComplexe const& z_2);
 NombreComplexe operator*(NombreComplexe const& z_1, NombreComplexe const& z_2);
+NombreComplexe operator*(NombreComplexe const& z_1, double const& t);
+NombreComplexe operator*(double const& t, NombreComplexe const& z_1);
 NombreComplexe operator/(NombreComplexe const& z_1, NombreComplexe const& z_2);
 
 

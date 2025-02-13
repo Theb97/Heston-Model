@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "Modele de Heston/FonctionsMathematiques/FonctionsMathematiques.h"
+#include "C:/Users/theob/OneDrive/Documents/Métier Quant/C++/Modele de Heston/FonctionsMathematiques/FonctionsMathematiques.h"
 
 class Transformee_de_Fourier_rapide
 {
@@ -18,6 +18,9 @@ class Transformee_de_Fourier_rapide
 		void afficher_signal_original();
 		void afficher_signal_ralonge();
 		Transformee_de_Fourier_rapide produit_de_convolution(Transformee_de_Fourier_rapide fft_1);
+		std::vector<NombreComplexe> fft_fractionnaire(double a);
+		std::vector<NombreComplexe> transformee_de_Fourier_continue_methode_classique_via_fft(std::vector<double> const&f, double T);
+		std::vector<NombreComplexe> transformee_de_Fourier_continue_methode_via_fft_fractionnaire(std::vector<double> const& f, double a, double b);
 		~Transformee_de_Fourier_rapide();
 
 
@@ -25,9 +28,9 @@ class Transformee_de_Fourier_rapide
 		std::vector<NombreComplexe> m_signal_original;
 		std::vector<NombreComplexe> m_signal_ralonge;
 };
-Transformee_de_Fourier_rapide operator*(Transformee_de_Fourier_rapide x, Transformee_de_Fourier_rapide y); //Extension du produit comme Ã©tant le produit de convolution
-std::vector<NombreComplexe> operator*(std::vector<NombreComplexe> x, std::vector<NombreComplexe>  y); //Extension du produit comme Ã©tant le produit de convolution
-std::vector<NombreComplexe> operator*(std::vector<double> x, std::vector<double>  y); //Extension du produit comme Ã©tant le produit de convolution
+Transformee_de_Fourier_rapide operator*(Transformee_de_Fourier_rapide x, Transformee_de_Fourier_rapide y); //Extension du produit comme étant le produit de convolution
+std::vector<NombreComplexe> operator*(std::vector<NombreComplexe> x, std::vector<NombreComplexe>  y); //Extension du produit comme étant le produit de convolution
+std::vector<NombreComplexe> operator*(std::vector<double> x, std::vector<double>  y); //Extension du produit comme étant le produit de convolution
 
 
 #endif // TRANSFORMEE_DE_FOURIER_RAPIDE_H_INCLUDED

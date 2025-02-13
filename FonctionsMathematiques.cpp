@@ -69,7 +69,7 @@ NombreComplexe NombreComplexe::soustraction(NombreComplexe const& S) const
     return NombreComplexe(a, b);
 }
 
-NombreComplexe NombreComplexe::lineaire(double t)
+NombreComplexe NombreComplexe::lineaire(double t) const
 {
     return NombreComplexe(t * m_partie_reelle, t * m_partie_imaginaire);
 }
@@ -198,6 +198,13 @@ NombreComplexe& NombreComplexe::operator*=(NombreComplexe const& Q)
     return *this;
 }
 
+NombreComplexe& NombreComplexe::operator*=(double const& t)
+{
+    m_partie_reelle *= t;
+    m_partie_imaginaire *= t;
+    return *this;
+}
+
 NombreComplexe& NombreComplexe::operator/=(NombreComplexe const& Q)
 {
     double a = m_partie_reelle * Q.partie_reelle() - m_partie_imaginaire * Q.partie_imaginaire();
@@ -267,6 +274,20 @@ NombreComplexe operator*(NombreComplexe const& z_1, NombreComplexe const& z_2)
 {
     
     NombreComplexe resultat = z_1.produit(z_2);
+    return resultat;
+}
+
+NombreComplexe operator*(NombreComplexe const& z_1, double const& t)
+{
+
+    NombreComplexe resultat = z_1.lineaire(t);
+    return resultat;
+}
+
+NombreComplexe operator*(double const& t , NombreComplexe const& z_1)
+{
+
+    NombreComplexe resultat = z_1.lineaire(t);
     return resultat;
 }
 
