@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "C:/Users/theob/OneDrive/Documents/Métier Quant/C++/Modele de Heston/FonctionsMathematiques/FonctionsMathematiques.h"
+#include "Modele de Heston/FonctionsMathematiques/FonctionsMathematiques.h"
 
 class Transformee_de_Fourier_rapide
 {
@@ -25,9 +25,9 @@ class Transformee_de_Fourier_rapide
 		std::vector<NombreComplexe> m_signal_original;
 		std::vector<NombreComplexe> m_signal_ralonge;
 };
-Transformee_de_Fourier_rapide operator*(Transformee_de_Fourier_rapide x, Transformee_de_Fourier_rapide y); //Extension du produit comme étant le produit de convolution
-std::vector<NombreComplexe> operator*(std::vector<NombreComplexe> x, std::vector<NombreComplexe>  y); //Extension du produit comme étant le produit de convolution
-std::vector<NombreComplexe> operator*(std::vector<double> x, std::vector<double>  y); //Extension du produit comme étant le produit de convolution
+Transformee_de_Fourier_rapide operator*(Transformee_de_Fourier_rapide x, Transformee_de_Fourier_rapide y); //Extension du produit comme Ã©tant le produit de convolution
+std::vector<NombreComplexe> operator*(std::vector<NombreComplexe> x, std::vector<NombreComplexe>  y); //Extension du produit comme Ã©tant le produit de convolution
+std::vector<NombreComplexe> operator*(std::vector<double> x, std::vector<double>  y); //Extension du produit comme Ã©tant le produit de convolution
 
 
 #endif // TRANSFORMEE_DE_FOURIER_RAPIDE_H_INCLUDED
