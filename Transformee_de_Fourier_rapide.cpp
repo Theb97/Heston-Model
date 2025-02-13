@@ -116,7 +116,7 @@ Transformee_de_Fourier_rapide Transformee_de_Fourier_rapide::compute_inverse_fft
 	}
 	else
 	{
-		// SÈparer les parties paires et impaires
+		// S√©parer les parties paires et impaires
 		vector<NombreComplexe> even(n / 2);
 		vector<NombreComplexe> odd(n / 2);
 
@@ -125,11 +125,11 @@ Transformee_de_Fourier_rapide Transformee_de_Fourier_rapide::compute_inverse_fft
 			odd[i] = x[i * 2 + 1];
 		}
 
-		// Appels rÈcursifs
+		// Appels r√©cursifs
 		even = _recursive_fft(even);
 		odd = _recursive_fft(odd);
 
-		// Calcul de la transformÈe FFT
+		// Calcul de la transform√©e FFT
 		vector<NombreComplexe> T(n / 2);
 		vector<NombreComplexe> resultat(n);
 
@@ -236,7 +236,7 @@ vector<NombreComplexe> Transformee_de_Fourier_rapide::fft_fractionnaire(double a
 }
 
 vector<NombreComplexe> Transformee_de_Fourier_rapide::transformee_de_Fourier_continue_methode_classique_via_fft(vector<double> const& f, double T)
-//f est une liste ‡ n ÈlÈments allant de - T / 2 ‡ T / 2 (2k - n) / nT / 2
+//f est une liste √† n √©l√©ments allant de - T / 2 √† T / 2 (2k - n) / nT / 2 repr√©sentant une fonction f(x) d√©finie sur l'intervalle [-T/2,T/2]
 {
 	vector<double> M;
 	for (size_t k = 1; k < f.size(); k += 2) {
@@ -258,7 +258,7 @@ vector<NombreComplexe> Transformee_de_Fourier_rapide::transformee_de_Fourier_con
 }
 
 vector<NombreComplexe> Transformee_de_Fourier_rapide::transformee_de_Fourier_continue_methode_via_fft_fractionnaire(vector<double> const& f, double a, double b)
-//f est une liste ‡ n ÈlÈments allant de -a/2 ‡ a/2 (2k-n)/na/2
+//f est une liste √† n √©l√©ments allant de -a/2 √† a/2 (2k-n)/na/2 repr√©sentant une fonction f(x) d√©finie sur l'intervalle [-a/2,a/2]
 {
 	vector<NombreComplexe> M;
 	for (size_t k = 1; k < f.size(); k++) {
