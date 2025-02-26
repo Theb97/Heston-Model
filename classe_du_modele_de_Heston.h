@@ -3,8 +3,8 @@
 
 #include <string>
 #include <vector>
-#include "C:/Users/theob/OneDrive/Documents/Métier Quant/C++/Modele de Heston/FonctionsMathematiques/FonctionsMathematiques.h"
-#include "C:/Users/theob/OneDrive/Documents/Métier Quant/C++/Modele de Heston/Transformee_de_Fourier_rapide/Transformee_de_Fourier_rapide.h"
+#include "C:/FonctionsMathematiques/FonctionsMathematiques.h"
+#include "C:/Transformee_de_Fourier_rapide/Transformee_de_Fourier_rapide.h"
 
 class modele_de_Heston
 {
