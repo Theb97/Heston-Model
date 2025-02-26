@@ -1,3 +1,6 @@
+// voir article de Carr et Madan (Option valuation using the fast Fourier transform) pour les m√©thodes en fin de code 
+
+
 #include "classe_du_modele_de_Heston.h"
 #include <string>
 #include <vector>
@@ -170,11 +173,11 @@ NombreComplexe modele_de_Heston::gamma(double const& phi,double const& alpha)
 
 modele_de_Heston::~modele_de_Heston()
 {
-	/* Rien ‡ mettre ici car on ne fait pas d'allocation dynamique
+	/* Rien √† mettre ici car on ne fait pas d'allocation dynamique
 	dans la classe modele_de_Heston. Le destructeur est donc inutile mais
-	je le mets pour montrer ‡ quoi cela ressemble.
+	je le mets pour montrer √† quoi cela ressemble.
 	En temps normal, un destructeur fait souvent des delete et quelques
-	autres vÈrifications si nÈcessaire avant la destruction de l'objet. */
+	autres v√©rifications si n√©cessaire avant la destruction de l'objet. */
 }
 
 
