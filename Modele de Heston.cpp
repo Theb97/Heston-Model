@@ -44,7 +44,7 @@ int main()
     cout << "Valeur de a : " << a << endl;
     cout << "Valeur de b : " << b << endl;
     b = ajouteDeux(a);                    // Appel de la fonction
-    afficherMessage("Je m'appelle Theophile Bourrat");
+    afficherMessage("Je m'appelle ThBourrat");
     cout << "Valeur de a : " << a << endl;
     cout << "Valeur de b : " << b << endl;
     string const MonFichier("C++.py");
