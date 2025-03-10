@@ -1,3 +1,8 @@
+// articles : 1/ Not-so-complex logarithm in the Heston model
+//	      2/ Option valuation using the fast Fourier transform, Carr & Madan
+
+
+
 #include "classe_du_modele_de_Heston.h"
 #include <string>
 #include <vector>
@@ -48,7 +53,7 @@ NombreComplexe modele_de_Heston::g_2(double const& phii)
 	return g_2(phi);
 }
 
-NombreComplexe modele_de_Heston::D_2_tau_phi(NombreComplexe const& phi)
+NombreComplexe modele_de_Heston::D_2_tau_phi(NombreComplexe const& phi) // Voir article Not-so-complex logarithm in the Heston model
 {
 
 	if (phi.module() < DBL_EPSILON)
@@ -82,7 +87,7 @@ NombreComplexe modele_de_Heston::D_2_tau_phi(double const& phii)
 	return D_2_tau_phi(phi);
 }
 
-NombreComplexe modele_de_Heston::C_2_tau_phi(NombreComplexe const& phi)
+NombreComplexe modele_de_Heston::C_2_tau_phi(NombreComplexe const& phi) // Voir article Not-so-complex logarithm in the Heston model
 {
 
 	if (phi.module() < DBL_EPSILON)
@@ -139,7 +144,7 @@ NombreComplexe modele_de_Heston::fonction_caracteristique_modele_de_Heston_2(dou
 	NombreComplexe phi(phii, 0);
 	return fonction_caracteristique_modele_de_Heston_2(phi);
 }
-// voir article Carr et Madan pour la definition de la fonction caractérisitique de log(S_t)
+// voir article Carr et Madan pour la definition de la fonction caractÃ©risitique de log(S_t)
 NombreComplexe modele_de_Heston::fonction_caracteristique_article_Carr_Madan(NombreComplexe const& phi)
 {
 	double nu = m_V_0;
@@ -183,11 +188,11 @@ NombreComplexe modele_de_Heston::gamma(double const& phi,double const& alpha)
 
 modele_de_Heston::~modele_de_Heston()
 {
-	/* Rien à mettre ici car on ne fait pas d'allocation dynamique
+	/* Rien Ã  mettre ici car on ne fait pas d'allocation dynamique
 	dans la classe modele_de_Heston. Le destructeur est donc inutile mais
-	je le mets pour montrer à quoi cela ressemble.
+	je le mets pour montrer Ã  quoi cela ressemble.
 	En temps normal, un destructeur fait souvent des delete et quelques
-	autres vérifications si nécessaire avant la destruction de l'objet. */
+	autres vÃ©rifications si nÃ©cessaire avant la destruction de l'objet. */
 }
 
 
