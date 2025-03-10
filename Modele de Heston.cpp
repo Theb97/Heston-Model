@@ -20,7 +20,7 @@ const double PI = 3.1415926535;
 
 int main()
 {
-          
+    //Différents tests pour s'approprier le langage C++      
     NombreComplexe z_1(1,1), z_2(1,1); // Création de deux nombres complexes : z_1 et z_2
     double c(z_1.module());
     modele_de_Heston xxx;
@@ -35,7 +35,7 @@ int main()
         double q = static_cast<double>(j);
         signal[j] = q;
     };
-    vector<NombreComplexe> y = (signal * signal);
+    vector<NombreComplexe> y = (signal * signal); // Extension du produit pour les vecteurs comme étant un produit de convolution
     for (int k = 0; k < 8; k++)
     {
         cout << y[k] << endl;
@@ -69,8 +69,8 @@ int main()
         *utt = (z.gamma(index-256.01,1.1));
     };
 
-    //Transformee_de_Fourier_rapide gamma_k_bis(gamma_k);
-    vector<NombreComplexe> gamma_bis = gamma_k;//((gamma_k_bis.compute_fft()).signal_ralonge());
+    Transformee_de_Fourier_rapide gamma_k_bis(gamma_k);
+    vector<NombreComplexe> gamma_bis = ((gamma_k_bis.compute_fft()).signal_ralonge());
 
     if (MonFlux)  //On teste si tout est OK
     {
