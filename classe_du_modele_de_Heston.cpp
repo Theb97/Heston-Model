@@ -1,6 +1,3 @@
-// voir article de Carr et Madan (Option valuation using the fast Fourier transform) pour les mÃ©thodes en fin de code 
-
-
 #include "classe_du_modele_de_Heston.h"
 #include <string>
 #include <vector>
@@ -142,6 +139,19 @@ NombreComplexe modele_de_Heston::fonction_caracteristique_modele_de_Heston_2(dou
 	NombreComplexe phi(phii, 0);
 	return fonction_caracteristique_modele_de_Heston_2(phi);
 }
+// voir article Carr et Madan pour la definition de la fonction caractérisitique de log(S_t)
+NombreComplexe modele_de_Heston::fonction_caracteristique_article_Carr_Madan(NombreComplexe const& phi)
+{
+	double nu = m_V_0;
+	double tau = m_T - m_t;
+	double x_t = log(m_S_t);
+	NombreComplexe i(0, 1);
+	double omega = (1.0 / nu) * log(1.0 - m_theta * nu - 1.0 / 2.0 * m_sigma * m_sigma * nu);
+	NombreComplexe phi_T = exp(x_t + m_r * tau + omega * tau) * (-tau / nu * (1 - i * m_theta * nu * phi + 1.0 / 2.0 * m_sigma * m_sigma * phi * phi * nu).logz()).expz();
+	return phi_T;
+
+}
+
 
 // voir article Carr et Madan pour la definition de la fonction psi
 NombreComplexe modele_de_Heston::psi(double const& phi, double const& alpha)
@@ -155,7 +165,7 @@ NombreComplexe modele_de_Heston::zeta(NombreComplexe const& phi)
 {
 	double tau = m_T - m_t;
 	NombreComplexe i(0, 1);
-	return ((exp(-m_r * tau)) * (1 / (1 + i * phi) - exp(m_r * tau) / (i * phi) - fonction_caracteristique_modele_de_Heston_2(phi - i) / (phi * phi - i * phi)));
+	return ((exp(-m_r * tau)) * (1 / (1 + i * phi) - exp(m_r * tau) / (i * phi) - fonction_caracteristique_article_Carr_Madan(phi - i) / (phi * phi - i * phi)));
 }
 NombreComplexe modele_de_Heston::zeta(double const& phii)
 {
@@ -173,11 +183,11 @@ NombreComplexe modele_de_Heston::gamma(double const& phi,double const& alpha)
 
 modele_de_Heston::~modele_de_Heston()
 {
-	/* Rien Ã  mettre ici car on ne fait pas d'allocation dynamique
+	/* Rien à mettre ici car on ne fait pas d'allocation dynamique
 	dans la classe modele_de_Heston. Le destructeur est donc inutile mais
-	je le mets pour montrer Ã  quoi cela ressemble.
+	je le mets pour montrer à quoi cela ressemble.
 	En temps normal, un destructeur fait souvent des delete et quelques
-	autres vÃ©rifications si nÃ©cessaire avant la destruction de l'objet. */
+	autres vérifications si nécessaire avant la destruction de l'objet. */
 }
 
 

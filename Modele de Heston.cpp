@@ -1,5 +1,3 @@
-//Fichier en constante évolution...
-
 // Modele de Heston.cpp : Ce fichier contient la fonction 'main'. L'exécution du programme commence et se termine à cet endroit.
 //
 #include <iostream>
@@ -20,7 +18,7 @@ const double PI = 3.1415926535;
 
 int main()
 {
-    //Différents tests pour s'approprier le langage C++      
+          
     NombreComplexe z_1(1,1), z_2(1,1); // Création de deux nombres complexes : z_1 et z_2
     double c(z_1.module());
     modele_de_Heston xxx;
@@ -35,55 +33,71 @@ int main()
         double q = static_cast<double>(j);
         signal[j] = q;
     };
-    vector<NombreComplexe> y = (signal * signal); // Extension du produit pour les vecteurs comme étant un produit de convolution
+    vector<NombreComplexe> y = (signal * signal);
     for (int k = 0; k < 8; k++)
     {
         cout << y[k] << endl;
     }
     
-    int a(2);
+    int aa(2);
     int b(2);
-    cout << "Valeur de a : " << a << endl;
+    cout << "Valeur de a : " << aa << endl;
     cout << "Valeur de b : " << b << endl;
-    b = ajouteDeux(a);                    // Appel de la fonction
-    afficherMessage("Je m'appelle ThBourrat");
-    cout << "Valeur de a : " << a << endl;
+    b = ajouteDeux(aa);                    // Appel de la fonction
+    afficherMessage("Je m'appelle Theophile Bourrat");
+    cout << "Valeur de a : " << aa << endl;
     cout << "Valeur de b : " << b << endl;
-    string const MonFichier("C++.py"); // On note dans un fichier python les valeurs calculés pour tracer ensuite un graphique
+    string const MonFichier("C++.py");
     ofstream MonFlux(MonFichier.c_str(), ios::out | ios::trunc);
     //Déclaration d'un flux permettant d'écrire dans le fichier python
 
-    
-    vector<NombreComplexe> gamma_k(512);
+    int n = 8192; // n doit être une puissance de 2 
+    vector<NombreComplexe> gamma_k(n);
 
     vector<NombreComplexe>::iterator ut;
     vector<NombreComplexe>::iterator utt;
     modele_de_Heston z(1.0, 0.0027, 0.2, 0.3, 0.12, 0.0, 0.0, 0.0027, 0.0, 1.0);
+    double a =8;
+    double eta = a / static_cast<double>(n);
+    double bb = 500;
+    double lambda = bb / static_cast<double>(n);
+    
+   
 
     
     
 
-    for (utt = gamma_k.begin(); utt != gamma_k.end(); ++utt)
+    for (ut = gamma_k.begin(); ut != gamma_k.end(); ++ut)
     {
-        double index = static_cast<double>(distance(gamma_k.begin(), utt));
-        *utt = (z.gamma(index-256.01,1.1));
+        double index = static_cast<double>(distance(gamma_k.begin(), ut));
+        NombreComplexe i(0, 1);
+        *ut = z.gamma(-a/2+ eta*index,1.1);
     };
+    double nn = static_cast<double>(n);
 
+   
+    
     Transformee_de_Fourier_rapide gamma_k_bis(gamma_k);
-    vector<NombreComplexe> gamma_bis = ((gamma_k_bis.compute_fft()).signal_ralonge());
-
+    vector<NombreComplexe> gamma_bis = ((gamma_k_bis.transformee_de_Fourier_continue_methode_via_fft_fractionnaire(a,bb)));
+    
     if (MonFlux)  //On teste si tout est OK
     {
         MonFlux << "import numpy as np" << endl;
         MonFlux << "import matplotlib.pyplot as plt" << endl;
         MonFlux << "   " << endl;
-        MonFlux << "x = np.linspace(-256,256,512)" << endl;
-        MonFlux << "##valeurs de la fonction zeta*sinh" << endl;
+        MonFlux << "pi=3.1415926535" << endl;
+        MonFlux << "n = " << n << endl;
+        MonFlux << "b = " <<bb/2<< endl;
+        MonFlux << "x = np.linspace(-b,b,n)" << endl;
+        MonFlux << "##included sinh" << endl;
         MonFlux << "Y1 = [";
+
         vector<NombreComplexe>::iterator it;
+
         for (it = gamma_bis.begin(); it != gamma_bis.end(); ++it)
         {
-            MonFlux << (*it).partie_reelle()/(2*PI);
+            double index = static_cast<double>(distance(gamma_bis.begin(), it));
+            MonFlux <<(*it).partie_reelle()/(2*PI);
             if (it != gamma_bis.end()-1)
             {
                 MonFlux << "," ;
@@ -94,15 +108,25 @@ int main()
             }
         };
         MonFlux << "   " << endl;
-        MonFlux << "##valeurs de la fonction zeta" << endl;
+        vector<NombreComplexe>::iterator utt;
+        
+
+        MonFlux << "##without sinh" << endl;
         MonFlux << "Y2 = [";
         vector<NombreComplexe>::iterator itt;
-        for (itt = gamma_bis.begin(); itt != gamma_bis.end(); ++itt)
+        for (itt = gamma_bis.begin() ; itt != gamma_bis.end(); ++itt)
         {
             double index = static_cast<double>(distance(gamma_bis.begin(), itt));
-            MonFlux << (*itt).partie_reelle() / (2 * PI * sinh((index - 256.01) * 1.1));
+            if (index != n/2)
+            {
+                MonFlux << (*itt).partie_reelle() / (2 * PI * sinh(1.1 * (-bb / 2 + lambda * index)));
+            }
+            else
+            {
+                MonFlux << 0;
+            }
             
-            if (itt != gamma_bis.end()-1)
+            if (itt != gamma_bis.end() - 1)
             {
                 MonFlux << ",";
             }
@@ -114,11 +138,11 @@ int main()
         };
         MonFlux << "plt.plot(x,Y1,color='red')" << endl;
         MonFlux << "plt.xlabel('log strike transform variate')" << endl;
-        MonFlux << "plt.ylabel('valeurs de la fonction zeta*sinh')" << endl;
+        MonFlux << "plt.ylabel('values including sinh')" << endl;
         MonFlux << "plt.show()" << endl;
         MonFlux << "plt.plot(x,Y2,color='green')" << endl;
         MonFlux << "plt.xlabel('log strike transform variate')" << endl;
-        MonFlux << "plt.ylabel('valeurs de la fonction zeta')" << endl;
+        MonFlux << "plt.ylabel('values without sinh')" << endl;
         MonFlux << "plt.show()" << endl;
 
     }
@@ -126,12 +150,10 @@ int main()
     {
         cout << "ERREUR: Impossible d'ouvrir le fichier." << endl;
     }
-    MonFlux.close();
     gamma_k.clear();
     gamma_bis.clear();
-
     
-    const int taille_tableau(100); // On teste ce que l'on a appris dans le cours certifiant d'OpenClassroom
+    const int taille_tableau(100);
     char tableau[taille_tableau];
     tableau[0] = 65;
     tableau[1] = 66;

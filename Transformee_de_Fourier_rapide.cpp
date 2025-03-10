@@ -116,7 +116,7 @@ Transformee_de_Fourier_rapide Transformee_de_Fourier_rapide::compute_inverse_fft
 	}
 	else
 	{
-		// S√©parer les parties paires et impaires
+		// SÈparer les parties paires et impaires
 		vector<NombreComplexe> even(n / 2);
 		vector<NombreComplexe> odd(n / 2);
 
@@ -125,11 +125,11 @@ Transformee_de_Fourier_rapide Transformee_de_Fourier_rapide::compute_inverse_fft
 			odd[i] = x[i * 2 + 1];
 		}
 
-		// Appels r√©cursifs
+		// Appels rÈcursifs
 		even = _recursive_fft(even);
 		odd = _recursive_fft(odd);
 
-		// Calcul de la transform√©e FFT
+		// Calcul de la transformÈe FFT
 		vector<NombreComplexe> T(n / 2);
 		vector<NombreComplexe> resultat(n);
 
@@ -221,7 +221,8 @@ vector<NombreComplexe> Transformee_de_Fourier_rapide::fft_fractionnaire(double a
 	}
 	y.push_back(NombreComplexe(0,0));
 	z.push_back(NombreComplexe(0, 0));
-	for (int j = n - 1; 0; j--)
+	int nnnn = static_cast<int>(n);
+	for (int j = nnnn - 1; 0; j--)
 	{
 		y.push_back(NombreComplexe(0, 0));
 		z.push_back(z[j]);
@@ -235,13 +236,15 @@ vector<NombreComplexe> Transformee_de_Fourier_rapide::fft_fractionnaire(double a
 	return M;
 }
 
-vector<NombreComplexe> Transformee_de_Fourier_rapide::transformee_de_Fourier_continue_methode_classique_via_fft(vector<double> const& f, double T)
-//f est une liste √† n √©l√©ments allant de - T / 2 √† T / 2 (2k - n) / nT / 2 repr√©sentant une fonction f(x) d√©finie sur l'intervalle [-T/2,T/2]
+vector<NombreComplexe> Transformee_de_Fourier_rapide::transformee_de_Fourier_continue_methode_classique_via_fft(double T)
+//f est une liste ‡ n ÈlÈments allant de - T / 2 ‡ T / 2 (2k - n) / nT / 2
+// la plage de valeur en sortie, b, est reliÈe ‡ T par la relation b*T=2*PI*n
 {
-	vector<double> M;
+	vector<NombreComplexe> M;
+	vector<NombreComplexe> f = m_signal_ralonge;
 	for (size_t k = 1; k < f.size(); k += 2) {
 		M.push_back(f[k-1]);
-		M.push_back(-f[k]);
+		M.push_back((- 1)*f[k]);
 	}
 	vector<NombreComplexe> N = Transformee_de_Fourier_rapide(M).compute_fft().m_signal_ralonge;
 	for (size_t k = 1; k < f.size(); k += 2) {
@@ -249,7 +252,22 @@ vector<NombreComplexe> Transformee_de_Fourier_rapide::transformee_de_Fourier_con
 		M.pop_back();
 		N[k] *= -1;
 	}
-	NombreComplexe y = NombreComplexe(0, -1).puissance_complexe(f.size());
+	int nnn = static_cast<int>(f.size());
+	int reste = nnn % 4;
+	NombreComplexe y;
+	switch (reste)
+	{
+	case 0:
+		y = NombreComplexe(1, 0);
+	case 1:
+		y = NombreComplexe(0, -1);
+	case 2:
+		y = NombreComplexe(-1, 0);
+	case 3:
+		y = NombreComplexe(0, 1);
+
+	}
+	
 	for (int j = 0; j < f.size(); j++)
 	{
 		N[j] *= NombreComplexe(T / f.size(), 0) * y;
@@ -257,15 +275,16 @@ vector<NombreComplexe> Transformee_de_Fourier_rapide::transformee_de_Fourier_con
 	return N;
 }
 
-vector<NombreComplexe> Transformee_de_Fourier_rapide::transformee_de_Fourier_continue_methode_via_fft_fractionnaire(vector<double> const& f, double a, double b)
-//f est une liste √† n √©l√©ments allant de -a/2 √† a/2 (2k-n)/na/2 repr√©sentant une fonction f(x) d√©finie sur l'intervalle [-a/2,a/2]
+vector<NombreComplexe> Transformee_de_Fourier_rapide::transformee_de_Fourier_continue_methode_via_fft_fractionnaire(double a, double b)
+//f est une liste ‡ n ÈlÈments allant de -a/2 ‡ a/2 (2k-n)/na/2 et renvoie une liste d'ÈlÈments correspondant aux valeurs de la transformÈe de Fourier de f allant de -b/2 ‡ b/2
 {
 	vector<NombreComplexe> M;
-	for (size_t k = 1; k < f.size(); k++) {
+	vector<NombreComplexe> f = m_signal_ralonge;
+	for (size_t k = 0; k < f.size(); k++) {
 		M.push_back(f[k]*expi(a*b*k/(2*f.size())));
 	}
 	vector<NombreComplexe> N = Transformee_de_Fourier_rapide(M).fft_fractionnaire(a*b/(2*PI* f.size()* f.size()));
-	for (size_t k = 1; k < f.size(); k++) {
+	for (size_t k = 0; k < f.size(); k++) {
 		M.pop_back();
 		N[k] *= ((a/ f.size())*expi(a/2*(-b/2+k*b/ f.size())));
 	}

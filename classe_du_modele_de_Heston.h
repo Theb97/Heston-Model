@@ -3,8 +3,8 @@
 
 #include <string>
 #include <vector>
-#include "C:/Modele de Heston/FonctionsMathematiques/FonctionsMathematiques.h"
-#include "C:/Modele de Heston/Transformee_de_Fourier_rapide/Transformee_de_Fourier_rapide.h"
+#include "C:/Users/theob/OneDrive/Documents/Métier Quant/C++/Modele de Heston/FonctionsMathematiques/FonctionsMathematiques.h"
+#include "C:/Users/theob/OneDrive/Documents/Métier Quant/C++/Modele de Heston/Transformee_de_Fourier_rapide/Transformee_de_Fourier_rapide.h"
 
 class modele_de_Heston
 {
@@ -21,6 +21,7 @@ public:
 	NombreComplexe C_2_tau_phi(double const& phii);
 	NombreComplexe fonction_caracteristique_modele_de_Heston_2(NombreComplexe const& phi);
 	NombreComplexe fonction_caracteristique_modele_de_Heston_2(double const& phii);
+	NombreComplexe fonction_caracteristique_article_Carr_Madan(NombreComplexe const& phi); // voir article Carr et Madan pour la definition de la fonction caractérisitique de log(S_t)
 	NombreComplexe psi(double const& phi, double const& alpha); // voir article Carr et Madan pour la definition de la fonction psi
 	NombreComplexe zeta(NombreComplexe const& phi); // voir article Carr et Madan pour la definition de la fonction zeta
 	NombreComplexe zeta(double const& phii);
