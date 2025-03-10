@@ -18,7 +18,7 @@ const double PI = 3.1415926535;
 
 int main()
 {
-          
+    // Différents tests pour s'approprier le langage C++ ...      
     NombreComplexe z_1(1,1), z_2(1,1); // Création de deux nombres complexes : z_1 et z_2
     double c(z_1.module());
     modele_de_Heston xxx;
