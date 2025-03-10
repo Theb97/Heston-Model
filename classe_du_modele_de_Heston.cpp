@@ -1,4 +1,4 @@
-// articles : 1/ Not-so-complex logarithm in the Heston model
+// articles : 1/ Not-so-complex logarithm in the Heston model, Kahl & Jäckel
 //	      2/ Option valuation using the fast Fourier transform, Carr & Madan
 
 
