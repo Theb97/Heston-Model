@@ -3,8 +3,10 @@
 
 #include <string>
 #include <vector>
-#include "Modele de Heston/FonctionsMathematiques/FonctionsMathematiques.h"
-#include "Modele de Heston/Transformee_de_Fourier_rapide/Transformee_de_Fourier_rapide.h"
+#include "Modele de Heston/FonctionsMathematiques/FonctionsMathematiques.h" // chemin du fichier à adapter en fonction de l'emplacement réel dans l'ordinateur...
+
+#include "Modele de Heston/Transformee_de_Fourier_rapide/Transformee_de_Fourier_rapide.h" // chemin du fichier à adapter en fonction de l'emplacement réel dans l'ordinateur...
+
 
 class modele_de_Heston
 {
