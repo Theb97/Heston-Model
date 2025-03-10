@@ -49,7 +49,7 @@ int main()
     afficherMessage("Je m'appelle ThBourrat");
     cout << "Valeur de a : " << a << endl;
     cout << "Valeur de b : " << b << endl;
-    string const MonFichier("C++.py");
+    string const MonFichier("C++.py"); // On note dans un fichier python les valeurs calculés pour tracer ensuite un graphique
     ofstream MonFlux(MonFichier.c_str(), ios::out | ios::trunc);
     //Déclaration d'un flux permettant d'écrire dans le fichier python
 
@@ -83,7 +83,7 @@ int main()
         vector<NombreComplexe>::iterator it;
         for (it = gamma_bis.begin(); it != gamma_bis.end(); ++it)
         {
-            MonFlux << (*it).partie_reelle();
+            MonFlux << (*it).partie_reelle()/(2*PI);
             if (it != gamma_bis.end()-1)
             {
                 MonFlux << "," ;
@@ -131,7 +131,7 @@ int main()
     gamma_bis.clear();
 
     
-    const int taille_tableau(100);
+    const int taille_tableau(100); // On teste ce que l'on a appris dans le cours certifiant d'OpenClassroom
     char tableau[taille_tableau];
     tableau[0] = 65;
     tableau[1] = 66;
